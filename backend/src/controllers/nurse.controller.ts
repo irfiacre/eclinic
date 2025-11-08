@@ -7,33 +7,33 @@ import {
   Patch,
   Delete,
 } from '@nestjs/common';
-import { Measurement } from 'src/entities/measurement.entity';
-import { MeasurementService } from 'src/services/measurement.service';
+import { Nurse } from 'src/entities/nurse.entity';
+import { NurseService } from 'src/services/nurse.service';
 
-@Controller('measurements')
-export class MeasurementController {
-  constructor(private readonly measurementService: MeasurementService) {}
+@Controller('nurse')
+export class NurseController {
+  constructor(private readonly measurementService: NurseService) {}
 
   @Post()
-  create(@Body() data: Partial<Measurement>): Promise<Measurement> {
+  create(@Body() data: Partial<Nurse>): Promise<Nurse> {
     return this.measurementService.create(data);
   }
 
   @Get()
-  findAll(): Promise<Measurement[]> {
+  findAll(): Promise<Nurse[]> {
     return this.measurementService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param(':id') id: string): Promise<Measurement> {
+  findOne(@Param(':id') id: string): Promise<Nurse> {
     return this.measurementService.findOne(id);
   }
 
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() data: Partial<Measurement>,
-  ): Promise<Measurement> {
+    @Body() data: Partial<Nurse>,
+  ): Promise<Nurse> {
     return this.measurementService.update(id, data);
   }
 

@@ -26,12 +26,9 @@ export class Queue {
   @Column({
     type: 'enum',
     enum: ['critical', 'moderate', 'average'],
-    default: 'pending',
+    default: 'average',
   })
-  prority: 'critical' | 'moderate' | 'average';
-
-  @Column()
-  assignedNumber: number;
+  priority: 'critical' | 'moderate' | 'average';
 
   @Column({ default: new Date() })
   createdAt: Date;

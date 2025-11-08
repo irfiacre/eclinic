@@ -5,9 +5,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
-import { User } from '../entities/user.entity';
 import { PatientInformation } from 'src/entities/patient.information.entity';
-// import { handleAddUserToQueue } from 'src/utils/helpers';
+import { User } from 'src/entities/user.entity';
+import { QueueService } from 'src/services/queue.service';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +16,8 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
     @InjectRepository(PatientInformation)
     private readonly patientInformationRepository: Repository<PatientInformation>,
+
+    private readonly queueService: QueueService,
   ) {}
 
   async create(data: Partial<User>): Promise<User> {
@@ -186,23 +188,19 @@ export class UsersService {
           return 'END Andika irangamuntu neza';
         }
       }
-      let queueNumber;
       if (text && userFound) {
         const result = await this.handleUpdateUserPatientInformation(
           userFound.patientInformation,
           userFound,
           text,
         );
-        console.log('>>>>>>>>', result);
         if (result && result.includes('CON')) {
           return result;
         }
-        // queueNumber = handleAddUserToQueue(userFound.patientInformation);
+        await this.queueService.handleAddUserToQueue(userFound);
       }
 
-      // Add user to QUEUE
-      // Add langchain agent to assign QUE
-      return `END Nimero yanyu ni ${queueNumber} Murakoze Turaje tubafashe`;
+      return `END Twakiriye neza case yanyu.\n Turaje tubafashe`;
     } catch (error) {
       console.error(error);
       return `END Mwongere mugerageze`;

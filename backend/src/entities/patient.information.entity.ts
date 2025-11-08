@@ -31,6 +31,9 @@ export class PatientInformation {
   @Column({ default: null })
   note: string;
 
+  @Column({ default: null })
+  recommendation: string;
+
   @Column({ default: new Date() })
   createdAt: Date;
 }

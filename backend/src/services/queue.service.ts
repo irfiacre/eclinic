@@ -1,50 +1,73 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Queue } from 'src/entities/queue.entity';
+import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
-import { Measurement } from '../entities/measurement.entity';
 
 @Injectable()
-export class MeasurementService {
+export class QueueService {
   constructor(
-    @InjectRepository(Measurement)
-    private readonly measurementRepository: Repository<Measurement>,
+    @InjectRepository(Queue)
+    private readonly queueRepository: Repository<Queue>,
   ) {}
 
-  async create(data: Partial<Measurement>): Promise<Measurement> {
-    const measurement = this.measurementRepository.create(data);
-    return await this.measurementRepository.save(measurement);
+  async create(data: Partial<Queue>): Promise<Queue> {
+    const queue = this.queueRepository.create(data);
+    return await this.queueRepository.save(queue);
   }
 
-  async findAll(): Promise<Measurement[]> {
-    return await this.measurementRepository.find({
+  async findAll(): Promise<Queue[]> {
+    return await this.queueRepository.find({
       relations: ['user'],
       order: { createdAt: 'DESC' },
     });
   }
 
-  async findOne(id: string): Promise<Measurement> {
-    const measurement = await this.measurementRepository.findOne({
+  async findOne(id: string): Promise<Queue> {
+    const queue = await this.queueRepository.findOne({
       where: { id },
       relations: ['user'],
     });
 
-    if (!measurement) {
-      throw new NotFoundException(`Measurement with ID ${id} not found`);
+    if (!queue) {
+      throw new NotFoundException(`Queue with ID ${id} not found`);
     }
 
-    return measurement;
+    return queue;
   }
 
-  async update(id: string, data: Partial<Measurement>): Promise<Measurement> {
-    const measurement = await this.findOne(id);
-    Object.assign(measurement, data);
-    return await this.measurementRepository.save(measurement);
+  async update(id: string, data: Partial<Queue>): Promise<Queue> {
+    const queue = await this.findOne(id);
+    Object.assign(queue, data);
+    return await this.queueRepository.save(queue);
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.measurementRepository.delete(id);
+    const result = await this.queueRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Measurement with ID ${id} not found`);
+      throw new NotFoundException(`Queue with ID ${id} not found`);
     }
+  }
+
+  async handleAddUserToQueue(user: User): Promise<Queue> {
+    let priority: 'critical' | 'moderate' | 'average' = 'average';
+    if (
+      parseInt(user.patientInformation.painScale) > 7 &&
+      parseInt(user.patientInformation.days) > 2
+    ) {
+      priority = 'critical';
+    } else if (
+      parseInt(user.patientInformation.painScale) > 5 &&
+      user.patientInformation.chronicDisease
+    ) {
+      priority = 'moderate';
+    }
+
+    const queue = await this.create({
+      user,
+      priority,
+    });
+
+    return queue;
   }
 }

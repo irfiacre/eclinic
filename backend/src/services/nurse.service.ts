@@ -1,50 +1,44 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Measurement } from '../entities/measurement.entity';
+import { Nurse } from '../entities/nurse.entity';
 
 @Injectable()
-export class MeasurementService {
+export class NurseService {
   constructor(
-    @InjectRepository(Measurement)
-    private readonly measurementRepository: Repository<Measurement>,
+    @InjectRepository(Nurse)
+    private readonly nurseRepository: Repository<Nurse>,
   ) {}
 
-  async create(data: Partial<Measurement>): Promise<Measurement> {
-    const measurement = this.measurementRepository.create(data);
-    return await this.measurementRepository.save(measurement);
+  async create(data: Partial<Nurse>): Promise<Nurse> {
+    const nurse = this.nurseRepository.create(data);
+    return await this.nurseRepository.save(nurse);
   }
 
-  async findAll(): Promise<Measurement[]> {
-    return await this.measurementRepository.find({
-      relations: ['user'],
+  async findAll(): Promise<Nurse[]> {
+    return await this.nurseRepository.find({
       order: { createdAt: 'DESC' },
     });
   }
 
-  async findOne(id: string): Promise<Measurement> {
-    const measurement = await this.measurementRepository.findOne({
-      where: { id },
-      relations: ['user'],
-    });
-
-    if (!measurement) {
-      throw new NotFoundException(`Measurement with ID ${id} not found`);
+  async findOne(id: string): Promise<Nurse> {
+    const nurse = await this.nurseRepository.findOne({ where: { id } });
+    if (!nurse) {
+      throw new NotFoundException(`Nurse with ID ${id} not found`);
     }
-
-    return measurement;
+    return nurse;
   }
 
-  async update(id: string, data: Partial<Measurement>): Promise<Measurement> {
-    const measurement = await this.findOne(id);
-    Object.assign(measurement, data);
-    return await this.measurementRepository.save(measurement);
+  async update(id: string, data: Partial<Nurse>): Promise<Nurse> {
+    const nurse = await this.findOne(id);
+    Object.assign(nurse, data);
+    return await this.nurseRepository.save(nurse);
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.measurementRepository.delete(id);
+    const result = await this.nurseRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Measurement with ID ${id} not found`);
+      throw new NotFoundException(`Nurse with ID ${id} not found`);
     }
   }
 }
