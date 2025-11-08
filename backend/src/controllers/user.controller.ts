@@ -62,8 +62,6 @@ export class UsersController {
     @Res() res: express.Response,
   ): Promise<any> {
     const result = await this.usersService.handleUssd(
-      body.sessionId,
-      body.serviceCode,
       body.phoneNumber,
       body.text,
     );
