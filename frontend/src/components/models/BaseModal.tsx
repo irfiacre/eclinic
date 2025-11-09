@@ -1,7 +1,7 @@
 import React from "react";
 import BaseCard from "../cards/BaseCard";
 
-const BaseModel = ({
+const BaseModal = ({
   title,
   children,
   containerStyle,
@@ -15,9 +15,9 @@ const BaseModel = ({
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity flex justify-center items-center z-50">
       <div className={containerStyle}>
-        <BaseCard className="h-1/4">
-          <div className="flex flex-row items-center justify-between p-5">
-            <h1 className="text-xl text-textLightColor font-normal capitalize">
+        <BaseCard className="h-1/4 p-5">
+          <div className="flex flex-row items-center justify-between">
+            <h1 className="text-xl text-textLightColor font-medium capitalize pb-8">
               {title}
             </h1>
             <button
@@ -50,4 +50,4 @@ const BaseModel = ({
   );
 };
 
-export default BaseModel;
+export default BaseModal;

@@ -25,7 +25,7 @@ export class NurseController {
   }
 
   @Get(':id')
-  findOne(@Param(':id') id: string): Promise<Nurse> {
+  findOne(@Param('id') id: string): Promise<Nurse> {
     return this.measurementService.findOne(id);
   }
 

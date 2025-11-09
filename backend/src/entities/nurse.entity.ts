@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { PatientCase } from './patient.case.entity';
 
 @Entity()
 export class Nurse {
@@ -20,7 +27,9 @@ export class Nurse {
   @Column()
   speciality: string;
 
-  // Relationships
+  @OneToOne(() => PatientCase, (caseEntity) => caseEntity.assignedNurse)
+  @JoinColumn()
+  patientCase: PatientCase;
 
   @Column({ default: new Date() })
   createdAt: Date;

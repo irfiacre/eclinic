@@ -5,13 +5,11 @@ import html2canvas from "html2canvas";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import BaseCard from "@/src/components/cards/BaseCard";
 import { useParams } from "next/navigation";
-import { findDocEntryById, updateDocEntry } from "@/services/firebase/helpers";
-import { EXAM_COLLECTION_NAME } from "@/constants/collectionNames";
 import Loading from "@/src/components/LoadingComponent";
-import QuestionComponent from "@/src/components/questions/QuestionComponent";
+import QuestionComponent from "@/src/components/PatientComponent";
 import { QuestionInterface } from "@/agents/assessment";
 import ReportTemplate from "@/src/components/report/Template";
-import AddQuestion from "@/src/views/addQuestion/AddQuestion";
+import AddQuestion from "@/src/views/AddDecision/AddDecision";
 import BaseButton from "@/src/components/buttons/BaseButton";
 
 const CourseDetails = () => {
@@ -25,11 +23,6 @@ const CourseDetails = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const result = await findDocEntryById(
-        EXAM_COLLECTION_NAME,
-        `${params.id}`
-      );
-      setExam(result);
       setLoading(false);
     })();
   }, [params.id]);
@@ -70,48 +63,12 @@ const CourseDetails = () => {
   };
 
   const questionDeleted = async (questionObj: any) => {
-    setDeleting(true);
-    const updatedExam = {
-      ...exam,
-      result: exam.result.filter(
-        (elt: any) => elt.question !== questionObj.question
-      ),
-    };
-
-    const result = await updateDocEntry(
-      EXAM_COLLECTION_NAME,
-      `${params.id}`,
-      updatedExam
-    );
-    if (result) {
-      const result = await findDocEntryById(
-        EXAM_COLLECTION_NAME,
-        `${params.id}`
-      );
-      setExam(result);
-    }
-    setDeleting(false);
+    console.log("-------->", questionObj);
   };
 
   const handleAddMoreQuestions = async (questions: any) => {
     setAddingQuestions(true);
-    const updatedExam = {
-      ...exam,
-      result: exam.result.concat(questions.result),
-    };
-
-    const response = await updateDocEntry(
-      EXAM_COLLECTION_NAME,
-      `${params.id}`,
-      updatedExam
-    );
-    if (response) {
-      const result = await findDocEntryById(
-        EXAM_COLLECTION_NAME,
-        `${params.id}`
-      );
-      setExam(result);
-    }
+    console.log("Delete code");
 
     setAddingQuestions(false);
   };

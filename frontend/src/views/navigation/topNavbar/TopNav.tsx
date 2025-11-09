@@ -1,6 +1,5 @@
 "use client";
 import { PLACEHOLDER_IMG } from "@/constants/fixtures";
-import { signOutUser } from "@/services/firebase/authentication";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +14,7 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
   const router = useRouter();
   const handleLogout = async () => {
     localStorage.removeItem("user");
-    await signOutUser();
+    // await signOutUser();
     router.replace("/");
   };
 
@@ -29,8 +28,6 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
         : "overview"
     );
   }, [params]);
-
-  const hasBack = false;
 
   return (
     <div className="flex flex-row justify-between">

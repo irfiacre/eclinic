@@ -46,16 +46,19 @@ export const formatHtmlEmail = (title: string, message: string) => `
     }
     .email-footer {
       margin-top: 20px;
-      color: #999999;
+      color: #02c39a;
       font-size: 12px;
       text-align: center;
+    }
+    .logo {
+    color: #02c39a;
     }
   </style>
 </head>
 <body>
   <div class="email-container">
     <div class="email-header">
-      <img src="https://lh3.googleusercontent.com/a/ACg8ocKeikcteT6clYwQG7hq7OLL7HHmVXslhPHfduX1V1LD9KZZ964=s576-c-no" alt="Logo" width="150" height="150" style="border-radius: 9999px;"/>
+    <h1 class="logo">eClinic</h1>
     </div>
     <div class="email-content">
       <h2>${title}</h2>

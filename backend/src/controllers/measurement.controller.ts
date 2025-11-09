@@ -25,7 +25,7 @@ export class MeasurementController {
   }
 
   @Get(':id')
-  findOne(@Param(':id') id: string): Promise<Measurement> {
+  findOne(@Param('id') id: string): Promise<Measurement> {
     return this.measurementService.findOne(id);
   }
 

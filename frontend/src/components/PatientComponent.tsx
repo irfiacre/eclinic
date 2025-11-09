@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BaseRadioButton from "../BaseRadioButton";
+import BaseRadioButton from "./BaseRadioButton";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface CreateCourseMaterialState {
@@ -9,7 +9,7 @@ interface CreateCourseMaterialState {
   duration?: any;
 }
 
-const QuestionComponent = ({
+const PatientComponent = ({
   content,
   handleDeleteQuestion,
   loading,
@@ -76,4 +76,4 @@ const QuestionComponent = ({
   );
 };
 
-export default QuestionComponent;
+export default PatientComponent;

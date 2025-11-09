@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import BaseButton from "@/src/components/buttons/BaseButton";
 import { handleGetAgentOutput } from "@/agents/assessment";
 import { buildAssessmentPrompt } from "@/agents/prompts";
-import { createDocEntry } from "@/services/firebase/helpers";
 import { parseAttachments } from "@/actions/actions";
 import BaseInput from "@/src/components/inputs/BaseInput";
 import { useRouter } from "next/navigation";
@@ -72,10 +71,10 @@ const ExamDescriptionForm = ({
     try {
       const extractedText = await parseAttachments(formData);
       console.log("====>>>>>>", extractedText);
-      
+
       if (!extractedText) {
         setTrainingData((prev: string) => prev + extractedText);
-      }else{
+      } else {
         setTrainingData("No Data");
       }
       // setTrainingData((prev: string) => prev + extractedText);
@@ -109,19 +108,10 @@ const ExamDescriptionForm = ({
 
       const examPrompt = buildAssessmentPrompt(examObject);
       console.log("========>>", examPrompt);
-      
+
       (async () => {
         const result = await handleGetAgentOutput(examPrompt, textInput);
         console.log("----->", result);
-        
-        await createDocEntry("exams", {
-          id: crypto.randomUUID(),
-          ...result,
-          ...examObject,
-          createdAt: new Date(),
-          examPrompt,
-        });
-
         setGenerating(false);
         router.push("/exams");
       })();

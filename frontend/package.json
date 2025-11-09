@@ -39,6 +39,7 @@
     "react": "^18",
     "react-cookie": "^7.1.4",
     "react-dom": "^18",
+    "react-markdown": "^10.1.0",
     "react-multi-carousel": "^2.8.5",
     "react-spinners": "^0.13.8",
     "react-tailwindcss-datepicker": "^1.6.6",

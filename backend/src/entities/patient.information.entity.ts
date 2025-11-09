@@ -5,16 +5,16 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { PatientCase } from './patient.case.entity';
 
 @Entity()
 export class PatientInformation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, (user) => user.patientInformation)
+  @OneToOne(() => PatientCase, (caseEntity) => caseEntity.patientInformation)
   @JoinColumn()
-  user: User;
+  patientCase: PatientCase;
 
   @Column({ default: null })
   painScale: string;

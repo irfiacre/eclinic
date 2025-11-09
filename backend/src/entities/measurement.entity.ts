@@ -5,16 +5,16 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { PatientCase } from './patient.case.entity';
 
 @Entity()
 export class Measurement {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => PatientCase, (caseEntity) => caseEntity.patientMeasurement)
   @JoinColumn()
-  user: User;
+  patientCase: PatientCase;
 
   @Column()
   temperature: number;

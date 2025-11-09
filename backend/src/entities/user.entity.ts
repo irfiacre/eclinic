@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { PatientInformation } from './patient.information.entity';
+import { PatientCase } from './patient.case.entity';
 
 @Entity()
 export class User {
@@ -12,12 +12,15 @@ export class User {
   @Column()
   telephone: string;
 
+  @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
   @Column({ default: new Date() })
   createdAt: Date;
 
-  @OneToOne(
-    () => PatientInformation,
-    (patientInformation) => patientInformation.user,
-  ) // specify inverse side as a second parameter
-  patientInformation: PatientInformation;
+  @OneToOne(() => PatientCase, (patientCase) => patientCase.patient)
+  patientCase: PatientCase;
 }

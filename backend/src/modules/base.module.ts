@@ -7,15 +7,35 @@ import { Measurement } from 'src/entities/measurement.entity';
 import { PatientInformation } from 'src/entities/patient.information.entity';
 import { MeasurementService } from 'src/services/measurement.service';
 import { MeasurementController } from 'src/controllers/measurement.controller';
-import { Queue } from 'src/entities/queue.entity';
-import { QueueService } from 'src/services/queue.service';
+import { PatientCase } from 'src/entities/patient.case.entity';
+import { PatientCaseService } from 'src/services/patient.case.service';
+import { PatientCaseController } from 'src/controllers/patient.case.controller';
+import { Nurse } from 'src/entities/nurse.entity';
+import { NurseController } from 'src/controllers/nurse.controller';
+import { NurseService } from 'src/services/nurse.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Measurement, PatientInformation, Queue]),
+    TypeOrmModule.forFeature([
+      User,
+      Measurement,
+      PatientInformation,
+      PatientCase,
+      Nurse,
+    ]),
   ],
-  controllers: [UsersController, MeasurementController],
-  providers: [UsersService, MeasurementService, QueueService],
-  exports: [UsersService, MeasurementService, QueueService],
+  controllers: [
+    UsersController,
+    MeasurementController,
+    PatientCaseController,
+    NurseController,
+  ],
+  providers: [
+    UsersService,
+    MeasurementService,
+    PatientCaseService,
+    NurseService,
+  ],
+  exports: [UsersService, MeasurementService, PatientCaseService, NurseService],
 })
 export class BaseModule {}
