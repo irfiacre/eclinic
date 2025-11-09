@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { PatientInformation } from './patient.information.entity';
-import { Measurement } from './measurement.entity';
-import { Queue } from './queue.entity';
+import { PatientCase } from './patient.case.entity';
 
 @Entity()
 export class User {
@@ -23,15 +21,6 @@ export class User {
   @Column({ default: new Date() })
   createdAt: Date;
 
-  @OneToOne(
-    () => PatientInformation,
-    (patientInformation) => patientInformation.user,
-  )
-  patientInformation: PatientInformation;
-
-  @OneToOne(() => Measurement, (patientMeasurement) => patientMeasurement.user)
-  patientMeasurement: Measurement;
-
-  @OneToOne(() => Queue, (patientOnQueue) => patientOnQueue.user)
-  patientOnQueue: Queue;
+  @OneToOne(() => PatientCase, (patientCase) => patientCase.patient)
+  patientCase: PatientCase;
 }

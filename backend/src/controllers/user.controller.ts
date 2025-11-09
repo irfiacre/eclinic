@@ -23,25 +23,21 @@ export interface UssdDto {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // GET /users
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  // GET /users/:id
   @Get(':id')
   findOne(@Param('id') id: string): Promise<User | null> {
     return this.usersService.findOne(id);
   }
 
-  // POST /users
   @Post()
   create(@Body() createUserDto: Partial<User>): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 
-  // PATCH /users/:id
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -50,7 +46,6 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  // DELETE /users/:id
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     await this.usersService.remove(id);

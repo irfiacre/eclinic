@@ -29,7 +29,7 @@ export class PatientInformationController {
   }
 
   @Get(':id')
-  findOne(@Param(':id') id: string): Promise<PatientInformation> {
+  findOne(@Param('id') id: string): Promise<PatientInformation> {
     return this.patientInformationService.findOne(id);
   }
 
