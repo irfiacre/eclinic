@@ -38,7 +38,7 @@ const PatientsTable = ({ data }: { data: Array<any> }) => {
   const handleSidebarSearch = (e: any) => {
     e.preventDefault();
     setSearchText(e.target.value);
-  };  
+  };
 
   return (
     <BaseCard className="px-10 py-5">
@@ -55,28 +55,31 @@ const PatientsTable = ({ data }: { data: Array<any> }) => {
         <span className="w-full">Name</span>
         <span className="w-full">Priority</span>
         <span className="w-full">Status</span>
+        <span className="w-full">Patient Note</span>
       </div>
       <hr />
       <div>
         {tableData.map((item) => (
-          <div key={item.user.telephone}>
+          <div key={item.id}>
             <div className="flex flex-row align-middle items-center py-2.5 px-1.5 gap-1.5 cursor-pointer hover:bg-backgroundColor">
               <div className="w-full">
                 <Link
-                  href={`/patients/${item.user.telephone}`}
+                  href={`/cases/${item.id}`}
                   className="flex gap-2 items-center"
                 >
-                  <span>{`${item.user.firstName} ${item.user.lastName}`}</span>
+                  <span>{`${item.patient.firstName} ${item.patient.lastName}`}</span>
                 </Link>
               </div>
               <div className="text-sm w-full">
-                <Link href={`/patients/${item.user.telephone}`}>
+                <Link href={`/cases/${item.id}`}>
                   <span
                     className={`text-white font-medium ${
                       item.priority === "critical"
                         ? "bg-red-500"
                         : item.priority === "moderate"
                         ? "bg-orange-500"
+                        : item.priority === "safe"
+                        ? "bg-successGreen"
                         : "bg-accent"
                     } py-2 px-5 rounded-full`}
                   >
@@ -86,10 +89,18 @@ const PatientsTable = ({ data }: { data: Array<any> }) => {
               </div>
               <div className="w-full">
                 <Link
-                  href={`/patients/${item.user.telephone}`}
+                  href={`/cases/${item.id}`}
                   className="flex gap-2 items-center"
                 >
                   <span>{item.status}</span>
+                </Link>
+              </div>
+              <div className="w-full">
+                <Link
+                  href={`/cases/${item.id}`}
+                  className="flex gap-2 items-center"
+                >
+                  <span>{item.patientInformation.note}</span>
                 </Link>
               </div>
             </div>

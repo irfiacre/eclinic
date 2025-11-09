@@ -1,6 +1,8 @@
-import { MAIL_APP_PSWRD, SENDER_EMAIL } from "@/constants/fixtures";
 import nodemailer from "nodemailer";
 import { formatHtmlEmail } from "./helpers";
+
+const SENDER_EMAIL = process.env.NEXT_GOOGLE_EMAIL;
+const MAIL_APP_PSWRD = process.env.NEXT_GOOGLE_EMAIL_PASSWORD;
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -23,7 +25,7 @@ export const sendEmail = async ({
 }) => {
   // Setup email data
   let mailOptions = {
-    from: `learner(${SENDER_EMAIL})`,
+    from: `eClinic - (${SENDER_EMAIL})`,
     to: email,
     subject: subject,
     html: formatHtmlEmail(title, message),

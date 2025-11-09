@@ -9,7 +9,7 @@ import Loading from "@/src/components/LoadingComponent";
 import QuestionComponent from "@/src/components/PatientComponent";
 import { QuestionInterface } from "@/agents/assessment";
 import ReportTemplate from "@/src/components/report/Template";
-import AddQuestion from "@/src/views/addQuestion/AddQuestion";
+import AddQuestion from "@/src/views/AddDecision/AddDecision";
 import BaseButton from "@/src/components/buttons/BaseButton";
 
 const CourseDetails = () => {

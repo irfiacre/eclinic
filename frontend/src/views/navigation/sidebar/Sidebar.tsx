@@ -7,9 +7,9 @@ export const Sidebar = () => {
   const sidebarMenu = {
     dashboard: [
       {
-        title: "Dashboard",
-        subtitle: "All Patient Information",
-        url: "dashboard",
+        title: "Cases",
+        subtitle: "All Cases",
+        url: "cases",
         icon: "material-symbols:dashboard-rounded",
       },
     ],

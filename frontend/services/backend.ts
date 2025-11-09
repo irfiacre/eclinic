@@ -19,16 +19,15 @@ export const baseService = async (
       },
       body: JSON.stringify(data),
     });
-    
+
     if (response.status === 404) {
       return null;
     }
     if (!response.ok) {
       console.warn(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    return { status: response.status, result: json };
+    }    
+      const json = await response.json();
+      return { status: response.status, result: json };
   } catch (error) {
     console.warn(error);
     return null;

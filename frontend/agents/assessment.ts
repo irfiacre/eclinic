@@ -16,13 +16,7 @@ const model = new ChatGoogleGenerativeAI({
   apiKey: API_KEY,
 });
 
-const QuestionsSchema = z.object({
-  question: z.string(),
-  options: z.array(z.string()),
-  answer: z.string(),
-});
-
-const ModelResponse = z.object({ result: z.array(QuestionsSchema) });
+const ModelResponse = z.object({ result: z.string() });
 
 export const handleGetAgentOutput = async (
   assessmentPrompt: string,
