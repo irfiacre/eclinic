@@ -12,7 +12,7 @@ export class Measurement {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, (user) => user.patientMeasurement)
   @JoinColumn()
   user: User;
 

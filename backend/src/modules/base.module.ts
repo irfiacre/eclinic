@@ -9,12 +9,13 @@ import { MeasurementService } from 'src/services/measurement.service';
 import { MeasurementController } from 'src/controllers/measurement.controller';
 import { Queue } from 'src/entities/queue.entity';
 import { QueueService } from 'src/services/queue.service';
+import { QueueController } from 'src/controllers/queue.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Measurement, PatientInformation, Queue]),
   ],
-  controllers: [UsersController, MeasurementController],
+  controllers: [UsersController, MeasurementController, QueueController],
   providers: [UsersService, MeasurementService, QueueService],
   exports: [UsersService, MeasurementService, QueueService],
 })

@@ -12,7 +12,7 @@ export class Queue {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, (user) => user.patientOnQueue)
   @JoinColumn()
   user: User;
 

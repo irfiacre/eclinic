@@ -8,6 +8,7 @@ import { Repository, DeleteResult } from 'typeorm';
 import { PatientInformation } from 'src/entities/patient.information.entity';
 import { User } from 'src/entities/user.entity';
 import { QueueService } from 'src/services/queue.service';
+import { mockNidaApi } from 'src/utils/helpers';
 
 @Injectable()
 export class UsersService {
@@ -35,7 +36,7 @@ export class UsersService {
   async findOne(telephone: string): Promise<User | null> {
     const user = await this.usersRepository.findOne({
       where: { telephone },
-      relations: ['patientInformation'],
+      relations: ['patientInformation', 'patientMeasurement', 'patientOnQueue'],
     });
 
     return user;
@@ -179,9 +180,12 @@ export class UsersService {
         }
         // Validate the ID Provided
         if (text.length === 16) {
+          const { firstName, lastName } = mockNidaApi();
           await this.create({
             nationalId: text,
             telephone: phoneNumber,
+            firstName,
+            lastName,
           });
           userFound = await this.findOne(phoneNumber);
         } else {
