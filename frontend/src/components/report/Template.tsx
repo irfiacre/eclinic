@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React from "react";
 import { QuestionInterface } from "@/agents/assessment";
-import QuestionComponent from "../questions/QuestionComponent";
+import QuestionComponent from "../PatientComponent";
 
 interface ReportTemplateProps {
   questions: QuestionInterface[];

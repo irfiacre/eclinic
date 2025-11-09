@@ -2,19 +2,18 @@
 import React, { useEffect, useState } from "react";
 import PatientsTable from "@/src/components/tables/Patients";
 import Loading from "@/src/components/LoadingComponent";
-import { baseService } from "@/services/backend";
 
 const Courses = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>([]);
 
+  const initialFindApplications = async () => {
+    setLoading(true);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const result = await baseService("queue");
-      if (result) setData(result.result);
-      setLoading(false);
-    })();
+    initialFindApplications();
   }, []);
 
   return <div>{loading ? <Loading /> : <PatientsTable data={data} />}</div>;

@@ -2,15 +2,9 @@
 import React, { useEffect, useState } from "react";
 import BaseCard from "../cards/BaseCard";
 import SearchableInput from "../inputs/SearchInput";
-import Image from "next/image";
-import Pagination from "./Pagination";
 import Link from "next/link";
 import BaseModel from "../models/BaseModel";
-import { addUser } from "@/services/firebase/authentication";
-import { DEFAULT_PASSWORD, USER_DOC_ID } from "@/constants/fixtures";
-import { createDocEntry } from "@/services/firebase/helpers";
-import { EXAM_COLLECTION_NAME } from "@/constants/collectionNames";
-import { Flip, toast } from "react-toastify";
+import { DEFAULT_PASSWORD } from "@/constants/fixtures";
 
 const UsersTable = ({ data }: { data: Array<any> }) => {
   const [searchText, setSearchText] = useState("");
@@ -66,36 +60,7 @@ const UsersTable = ({ data }: { data: Array<any> }) => {
   const handleCloseModel = () => setOnboardingPlan(false);
 
   const handleCreatePlan = async (obj: "create" | any) => {
-    if (obj === "create") {
-      setOnboardingPlan(true);
-    } else {
-      const user = await addUser(obj.email, DEFAULT_PASSWORD);
-      const staffFormat = {
-        id: USER_DOC_ID,
-        userId: user.uid,
-        firstName: obj.first_name,
-        lastName: obj.last_name,
-        role: obj.role,
-        cooperative: obj.cooperative,
-      };
-
-      const staffAdded = await createDocEntry(
-        EXAM_COLLECTION_NAME,
-        staffFormat
-      );
-
-      if (staffAdded) {
-        const result = await sendConfirmationEmail(obj.email);
-        toast.success("User Created", {
-          hideProgressBar: true,
-          closeOnClick: true,
-          transition: Flip,
-          autoClose: 3000,
-        });
-      }
-
-      handleCloseModel();
-    }
+    console.log("create user");
   };
   return (
     <BaseCard className="px-10 py-5">
@@ -138,17 +103,6 @@ const UsersTable = ({ data }: { data: Array<any> }) => {
           <div key={`${item.firstName}-${item.lastName}`}>
             <Link href={`#`}>
               <div className="flex flex-row justify-between items-center py-2.5 px-1.5 gap-3.5 cursor-pointer hover:bg-primary_3">
-                {/*  <div className="">
-                  <Image
-                    className="rounded-full cursor-pointer"
-                    loader={() => item.photoUrl}
-                    src={item.photoUrl}
-                    alt="Rounded avatar"
-                    height={70}
-                    width={70}
-                    unoptimized
-                  /> 
-                </div>*/}
                 <div className="text-sm">
                   <span className="text-textLightColor font-light">
                     {item.firstName}
@@ -171,7 +125,6 @@ const UsersTable = ({ data }: { data: Array<any> }) => {
                   </span>
                 </div>
               </div>
-
               <hr />
             </Link>
           </div>

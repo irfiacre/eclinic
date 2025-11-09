@@ -32,31 +32,31 @@ const AIInput = ({
 };
 
 const AddQuestion = ({
-  exam,
+  patient,
   loading,
-  handleAddMoreQuestions,
+  handleAddDecision,
 }: {
-  exam: any;
+  patient: any;
   loading: boolean;
-  handleAddMoreQuestions: (data: any) => void;
+  handleAddDecision: (data: any) => void;
 }) => {
-  const [showInput, setShowInput] = useState<boolean>(false);
   const [addingQuestions, setAddingQuestions] = useState(false);
 
   const handleAskAI = async (text: string) => {
     setAddingQuestions(true);
-    const questionPrompt = buildQuestionPrompt(exam.examPrompt, exam.result);
+    const questionPrompt = buildQuestionPrompt(
+      patient.patientPrompt,
+      patient.result
+    );
     const result: any = await handleGetAgentOutput(questionPrompt, text);
-    await handleAddMoreQuestions(result);
+    await handleAddDecision(result);
     setAddingQuestions(false);
   };
 
   return (
     <div className="flex items-center justify-center">
       <div className="w-full">
-        <h1 className="text-xl text-center py-5 text-gray-500">
-          Add another question
-        </h1>
+        <h1 className="text-center py-5 text-gray-500">Medusa</h1>
         <AIInput
           handleSubmit={handleAskAI}
           loading={addingQuestions || loading}

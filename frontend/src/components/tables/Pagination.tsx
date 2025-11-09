@@ -47,7 +47,7 @@ const Pagination = ({
       </button>
       <div className="flex items-center gap-2">
         <button
-          className="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full bg-primary text-center align-middle text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          className="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full bg-primary text-center align-middle text-xs font-medium uppercase text-white -md transition-all focus:opacity-[0.85] active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50"
           type="button"
         >
           <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
@@ -56,7 +56,7 @@ const Pagination = ({
         </button>
       </div>
       <button
-        className="flex items-center gap-2 px-6 py-3 text-xs font-medium text-center text-textLightColor uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        className="flex items-center gap-2 px-6 py-3 text-xs font-medium text-center text-textLightColor uppercase align-middle transition-all rounded-full select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50"
         type="button"
         onClick={() => handleClickNext()}
         disabled={currentPage === totalPages}
