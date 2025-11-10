@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
 import { User } from '../entities/user.entity';
 import { UsersController } from 'src/controllers/user.controller';
 import { UsersService } from 'src/services/user.service';
@@ -10,9 +11,9 @@ import { MeasurementController } from 'src/controllers/measurement.controller';
 import { PatientCase } from 'src/entities/patient.case.entity';
 import { PatientCaseService } from 'src/services/patient.case.service';
 import { PatientCaseController } from 'src/controllers/patient.case.controller';
-import { Nurse } from 'src/entities/staff.entity';
-import { NurseController } from 'src/controllers/nurse.controller';
-import { NurseService } from 'src/services/nurse.service';
+import { Staff } from 'src/entities/staff.entity';
+import { StaffController } from 'src/controllers/staff.controller';
+import { StaffService } from 'src/services/staff.service';
 
 @Module({
   imports: [
@@ -21,21 +22,25 @@ import { NurseService } from 'src/services/nurse.service';
       Measurement,
       PatientInformation,
       PatientCase,
-      Nurse,
+      Staff,
     ]),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'secret_key',
+      signOptions: { expiresIn: '1w' },
+    }),
   ],
   controllers: [
     UsersController,
     MeasurementController,
     PatientCaseController,
-    NurseController,
+    StaffController,
   ],
   providers: [
     UsersService,
     MeasurementService,
     PatientCaseService,
-    NurseService,
+    StaffService,
   ],
-  exports: [UsersService, MeasurementService, PatientCaseService, NurseService],
+  exports: [UsersService, MeasurementService, PatientCaseService, StaffService],
 })
 export class BaseModule {}
