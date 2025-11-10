@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { handleGetAgentOutput } from "@/agents/assessment";
 import { buildRecommendationPrompt } from "@/agents/prompts";
+import { extractInformationFromToken } from "@/util/helpers";
 
 const CourseDetails = () => {
   const params = useParams();
@@ -50,12 +51,17 @@ const CourseDetails = () => {
 
   const handleAddDecision = async (decision: any) => {
     setAddingQuestions(true);
+    const information: any = await extractInformationFromToken();    
     const result = await baseService(
       `patient-cases/${params.id}`,
-      { decision, status: "served", priority: "safe" },
+      {
+        decision,
+        status: "served",
+        priority: "safe",
+        assignedNurse: information.nurse,
+      },
       "PATCH"
     );
-    // ToDo: add assigned nurse when decision is taken
     if (result?.result) {
       toast.success("Decision Added Successfully", {
         hideProgressBar: true,

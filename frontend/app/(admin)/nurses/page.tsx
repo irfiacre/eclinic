@@ -11,7 +11,7 @@ const Courses = () => {
 
   const initialFindApplications = async () => {
     setLoading(true);
-    const result = await baseService("nurse");
+    const result = await baseService("staff");
     if (result) setData(result.result);
     setLoading(false);
   };

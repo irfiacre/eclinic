@@ -8,7 +8,7 @@ import {
 import { User } from './user.entity';
 import { PatientInformation } from './patient.information.entity';
 import { Measurement } from './measurement.entity';
-import { Nurse } from './nurse.entity';
+import { Staff } from './staff.entity';
 
 @Entity()
 export class PatientCase {
@@ -51,6 +51,6 @@ export class PatientCase {
   )
   patientMeasurement: Measurement;
 
-  @OneToOne(() => Nurse, (nurse) => nurse.patientCase)
-  assignedNurse: Nurse;
+  @OneToOne(() => Staff, (nurse) => nurse.patientCase)
+  assignedNurse: Staff;
 }

@@ -1,19 +1,11 @@
 "use client";
-import { Poppins } from "next/font/google";
-// @ts-ignore
-import "../globals.css";
-import { primaryColorBg } from "@/constants/colors";
+
 import { Sidebar } from "@/src/views/navigation/sidebar/Sidebar";
 import TopNav from "@/src/views/navigation/topNavbar/TopNav";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 // @ts-ignore
 import "react-toastify/dist/ReactToastify.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 
 export default function RootLayout({
   children,
@@ -24,10 +16,7 @@ export default function RootLayout({
   const user = {};
   return (
     <html lang="en">
-      <body
-        className={poppins.className}
-        style={{ backgroundColor: primaryColorBg }}
-      >
+      <body>
         <div className="flex flex-row">
           <div className={`${isActive ? "w-3/4" : "md:w-2/6"}`}>
             <button

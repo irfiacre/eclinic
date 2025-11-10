@@ -14,12 +14,10 @@ const BaseInput = ({
   additionalStyles,
   ...props
 }: InputProps) => {
-  const inputID = `${label.toLowerCase()}-${Math.round(Math.random() * 10000)}`;
 
   return (
     <div className="w-full">
       <label
-        htmlFor={inputID}
         className={`block mb-2 ${
           error ? "text-red-500" : "text-gray-700"
         } mb-1 font-semibold`}
@@ -27,7 +25,6 @@ const BaseInput = ({
         {label}
       </label>
       <input
-        id={inputID}
         className={
           className
             ? className
