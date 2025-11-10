@@ -1,4 +1,8 @@
+"use server";
 import moment from "moment";
+import { jwtDecode } from "jwt-decode";
+import { cookies } from "next/headers";
+import { TOKEN_COOKIE_NAME } from "@/constants/fixtures";
 
 export const emailValidate = (email: string) => {
   if (!email) return "No Email Provided!";
@@ -74,12 +78,11 @@ export const formatHtmlEmail = (title: string, message: string) => `
 
 `;
 
-export const generateId = (text?: string): string => {
-  const baseText = text ? text.split(" ").join("_").toLowerCase() : "";
-  return `${baseText}-${new Date().getTime()}`;
-};
-
-export const generateFileName = (text?: string): string => {
-  const baseText = text ? text.split(" ").join("_").toLowerCase() : "";
-  return `${new Date().getTime()}-${baseText}`;
+export const extractInformationFromToken = async (): Promise<object> => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(TOKEN_COOKIE_NAME);
+  if (token) {
+    return jwtDecode(token?.value);
+  }
+  return {};
 };

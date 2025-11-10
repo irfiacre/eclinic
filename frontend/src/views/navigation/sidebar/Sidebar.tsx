@@ -1,7 +1,8 @@
 "use client";
 import LogoComponent from "@/src/components/logo/LogoComponent";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MenuItem } from "./MenuSection";
+import { extractInformationFromToken } from "@/util/helpers";
 
 export const Sidebar = () => {
   const sidebarMenu = {
@@ -13,7 +14,7 @@ export const Sidebar = () => {
         icon: "material-symbols:dashboard-rounded",
       },
     ],
-    exams: [
+    nurses: [
       {
         title: "Nurses",
         subtitle: "Manage nurses",
@@ -22,12 +23,17 @@ export const Sidebar = () => {
       },
     ],
   };
-  const [searchText, setSearchText] = useState("");
+  const [userRole, setUserRole] = useState<string>("nurse");
 
-  const handleSidebarSearch = (e: any) => {
-    e.preventDefault();
-    setSearchText(e.target.value);
-  };
+  useEffect(() => {
+    (async () => {
+      const information: any = await extractInformationFromToken();
+      if (information?.nurse) {
+        setUserRole(information.nurse.role);
+      }
+    })();
+  }, []);
+
   return (
     <div className="px-6 py-9 border border-r-sidebarBorderColor h-lvh flex flex-col gap-6">
       <div>
@@ -36,9 +42,11 @@ export const Sidebar = () => {
       <div>
         <MenuItem content={sidebarMenu.dashboard[0]} />
       </div>
-      <div>
-        <MenuItem content={sidebarMenu.exams[0]} />
-      </div>
+      {userRole !== "nurse" && (
+        <div>
+          <MenuItem content={sidebarMenu.nurses[0]} />
+        </div>
+      )}
     </div>
   );
 };

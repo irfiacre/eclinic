@@ -9,6 +9,8 @@ export interface NurseState {
   email: string;
   speciality: string;
   telephone: string;
+  password?: string;
+  role?: string;
 }
 
 const CreateNurse = ({
@@ -24,6 +26,7 @@ const CreateNurse = ({
     email: "",
     speciality: "general",
     telephone: "",
+    role: "nurse",
   });
 
   const handleInputChange = (e: any) => {
@@ -104,9 +107,27 @@ const CreateNurse = ({
           placeholder="Ex: 078XXXXXXX"
           onChange={handleInputChange}
         />
+        <div className="w-full py-3.5">
+          <label
+            htmlFor="speciality"
+            className="block mb-2 text-base font-medium"
+          >
+            Role
+          </label>
+          <select
+            id="speciality"
+            className="block w-full p-2 h-14 bg-backgroundColor border border-borderColorLight focus:bg-white focus:border-borderColorLight text-md rounded-md  focus:outline-none disabled:bg-backgroundColor2"
+            onChange={handleInputChange}
+          >
+            <option value="nurse">Nurse</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
       </div>
       <div className="py-3.5">
-        <BaseButton type="submit" loading={loading}>Submit</BaseButton>
+        <BaseButton type="submit" loading={loading}>
+          Submit
+        </BaseButton>
       </div>
     </form>
   );

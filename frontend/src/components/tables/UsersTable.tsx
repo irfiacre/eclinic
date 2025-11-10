@@ -75,7 +75,8 @@ const NursesTable = ({
 
   const handleAddNurse = async (nurse: NurseState) => {
     setLoading(true);
-    const result = await baseService("nurse", nurse, "POST");
+    nurse.password = DEFAULT_PASSWORD;
+    const result = await baseService("staff", nurse, "POST");
 
     if (result?.result) {
       toast.success("Nurse Added Successfully", {

@@ -6,9 +6,6 @@ import SearchableInput from "../inputs/SearchInput";
 import Pagination from "./Pagination";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-// import { EXAM_COLLECTION_NAME } from "@/constants/collectionNames";
-// import { toast } from "react-toastify";
-// import { generateId } from "@/util/helpers";
 
 const PatientsTable = ({ data }: { data: Array<any> }) => {
   const [searchText, setSearchText] = useState("");

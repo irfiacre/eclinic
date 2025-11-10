@@ -11,10 +11,10 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        taxiMeter: "url('/img/tired_nurse.jpg')",
+        taxiMeter: "url('/img/tired_nurse.png')",
       },
       colors: {
-        primary: "#02c39a",
+        primary: "#14a4ac",
         accent: "#05668d",
         wild: "#f0f3bd",
         textDarkColor: "#353546",

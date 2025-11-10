@@ -7,25 +7,19 @@ import LoginForm from "../forms/LoginForm";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
   const [loginError, setLoginError] = useState<string>("");
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-      router.push("/applications");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   const handleLoginBtn = async (email: string, password: string) => {
     setLoading(true);
-    // const user: any = await signExistingUser(email, password);
-    if (user.name?.includes("FirebaseError")) {
-      setLoginError("Invalid User Credentials");
-    } else if (user) {
-      setUser(user);
+    const result = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    if (result.status !== 201) {
+      setLoginError("Invalid Credentials");
     }
     setLoading(false);
   };

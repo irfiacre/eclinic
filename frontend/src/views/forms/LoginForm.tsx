@@ -55,6 +55,7 @@ const LoginForm = ({
           error={loginError ? " " : state.error}
           placeholder="Email"
           id="email"
+          required
           onChange={handleInputChange}
         />
         <BaseInput
@@ -62,7 +63,9 @@ const LoginForm = ({
           value={state.password}
           error={loginError ? " " : null}
           placeholder="Password"
+          type="password"
           id="password"
+          required
           onChange={handleInputChange}
         />
       </div>
