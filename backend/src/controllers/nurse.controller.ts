@@ -7,7 +7,7 @@ import {
   Patch,
   Delete,
 } from '@nestjs/common';
-import { Nurse } from 'src/entities/nurse.entity';
+import { Nurse } from 'src/entities/staff.entity';
 import { NurseService } from 'src/services/nurse.service';
 
 @Controller('nurse')

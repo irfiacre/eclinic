@@ -10,7 +10,7 @@ import { MeasurementController } from 'src/controllers/measurement.controller';
 import { PatientCase } from 'src/entities/patient.case.entity';
 import { PatientCaseService } from 'src/services/patient.case.service';
 import { PatientCaseController } from 'src/controllers/patient.case.controller';
-import { Nurse } from 'src/entities/nurse.entity';
+import { Nurse } from 'src/entities/staff.entity';
 import { NurseController } from 'src/controllers/nurse.controller';
 import { NurseService } from 'src/services/nurse.service';
 
