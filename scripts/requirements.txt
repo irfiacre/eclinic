@@ -1,0 +1,2 @@
+click
+todoist-api-python
