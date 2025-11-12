@@ -22,7 +22,7 @@ jobs:
       id: build
       uses: cloudposse/github-action-docker-build-push@main
       with:
-        registry: registry.hub.docker.com
+        registry: docker.io
         repository: "irfiacre/eclinic"
         workdir: eclinic/backend
         login: "${{ secrets.DOCKERHUB_USERNAME }}"
