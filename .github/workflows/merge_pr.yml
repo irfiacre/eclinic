@@ -5,13 +5,15 @@ name: Add labels and Move Task
 #     types: [closed]
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  on-merge:
-    if: github.event.pull_request.merged == true
+  # on-merge:
+  #   if: github.event.pull_request.merged == true
+  #   runs-on: ubuntu-latest
+  build:
     runs-on: ubuntu-latest
 
     steps:
