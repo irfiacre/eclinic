@@ -17,7 +17,6 @@ jobs:
 
     - name: Checking for correct paths
       run: echo $PWD
-      run: echo $PWD/../../backend
 
     - name: Build and Push Docker Image
       id: build
