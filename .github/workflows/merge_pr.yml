@@ -1,22 +1,36 @@
 name: Add labels and Move Task
 
+# on:
+#   pull_request:
+#     types: [closed]
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
-    types: [closed]   # Runs when the PR is closed (merged or manually closed)
+    branches: [ "main" ]
 
 jobs:
   on-merge:
-    if: github.event.pull_request.merged == true   # Run only if it was actually merged
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Show branch info
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        working-directory: ./scripts
         run: |
-          echo "✅ Pull Request was merged!"
-          echo "Source branch: ${{ github.event.pull_request.head.ref }}"
-          echo "Target branch: ${{ github.event.pull_request.base.ref }}"
-          echo "Merged by: ${{ github.event.pull_request.merged_by.login }}"
-          echo "PR title: ${{ github.event.pull_request.title }}"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create Task (ticket)
+        working-directory: ./scripts
+        run: |
+          python3 pm_tools.py finish "${{ github.event.pull_request.title }}"
+          python3 pm_tools.py label "${{ github.event.pull_request.title }}" merged_on_github

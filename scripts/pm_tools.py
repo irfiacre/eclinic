@@ -16,12 +16,14 @@ def cli():
     pass
 
 @cli.command()
-@click.argument("task_id")
-def finish(task_id):
+@click.argument("title")
+def finish(title):
     """
     Method moves task from one column to  another
     """
     api = TodoistAPI(API_TOKEN)
+    title_arr = title.split("-")
+    task_id = title_arr[0]
     click.echo(f"Moving Task({task_id}) to DONE")
     api.move_task(task_id, project_id=PROJECT_ID, section_id=DONE_SECTION_ID)
 
@@ -33,16 +35,18 @@ def create(title):
     """
     api = TodoistAPI(API_TOKEN)
     api.add_task(content=title, project_id=PROJECT_ID, section_id=TO_DO_SECTION_ID)
-    click.echo(f"Created Task with title `{title}` and ID: `{title}`")
+    click.echo(f"Created Task with title `{title}`")
 
 @cli.command()
-@click.argument("task_id")
+@click.argument("title")
 @click.argument("labels", nargs=-1)
-def label(task_id, labels):
+def label(title, labels):
     """
     Add one or more labels to a Todoist task.    
     """
     api = TodoistAPI(API_TOKEN)
+    title_arr = title.split("-")
+    task_id = title_arr[0]
     click.echo(f"Task ID: {task_id}")
     click.echo(f"Labels: {labels}")
     try:
