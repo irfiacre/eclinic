@@ -13,13 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    # - name: Building the Project ${{ matrix.node-version }}
+    - name: Checking for correct paths
     #   uses: actions/setup-node@v4
     #   with:
     #     node-version: ${{ matrix.node-version }}
     #     cache: 'npm'
-    # - run: echo $PWD
-    # - run: cd $PWD/../../backend
+    - run: echo $PWD
+    - run: echo $PWD/../../backend
     # - run: npm install
     # - run: npm run build
 
