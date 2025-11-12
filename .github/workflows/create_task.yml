@@ -1,16 +1,11 @@
 name: Create Task
 
-# on:
-#   pull_request:
-#     types: [opened, synchronize, reopened]
-#     branches:
-#       - main
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-    
+    types: [opened, reopened]
+    branches:
+      - main
+
 jobs:
   install-python-deps:
     runs-on: ubuntu-latest

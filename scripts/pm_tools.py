@@ -33,7 +33,7 @@ def create(title):
     """
     api = TodoistAPI(API_TOKEN)
     api.add_task(content=title, project_id=PROJECT_ID, section_id=TO_DO_SECTION_ID)
-    click.echo(f"Created Task with title {title} and ID: {title}")
+    click.echo(f"Created Task with title `{title}` and ID: `{title}`")
 
 @cli.command()
 @click.argument("task_id")
