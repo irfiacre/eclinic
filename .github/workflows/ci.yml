@@ -24,7 +24,7 @@ jobs:
       with:
         registry: registry.hub.docker.com
         repository: "irfiacre/eclinic"
-        workdir: echo $PWD/backend
+        workdir: backend
         login: "${{ secrets.DOCKERHUB_USERNAME }}"
         password: "${{ secrets.DOCKERHUB_PASSWORD }}"
     outputs:
