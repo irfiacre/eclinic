@@ -30,7 +30,8 @@ These two problems reinforce each other: long queues result partly from time-con
 ## 3. Solution Overview
 
 **eClinic** is a lightweight digital triage and consultation support system designed for rural clinics.  
-[Diagram]
+
+<img width="625" height="165" alt="image" src="https://github.com/user-attachments/assets/1f413114-4160-4488-8faf-c2ef11d08ac0" />
 
 It integrates **USSD-based patient pre-registration** with an **AI-assisted triage and summarization tool** to streamline care delivery and reduce administrative burden.
 
@@ -40,7 +41,7 @@ It integrates **USSD-based patient pre-registration** with an **AI-assisted tria
    Patients dial a USSD code (via Africa’s Talking API) and answer short questions about symptoms, pain level, and location.  
 2. **Backend Processing:**  
    The responses are stored securely in a PostgreSQL database.  
-3. **Nurse Dashboard (Next.js):**  
+3. **Frontend (Next.js):**  
    Nurses log in to view patient queues with symptom summaries. They can add vital signs (e.g., temperature, blood pressure).  
 4. **AI Recommendation (LLM):**  
    When ready, the nurse triggers an AI (LLM) summarization model that processes both patient input and nurse data to provide:  
@@ -56,7 +57,6 @@ This approach provides patients with clarity and nurses with decision support �
 ---
 
 ## 4. System Architecture
-[Diagram]
 ### Components
 
 | Component | Description |
@@ -72,10 +72,12 @@ This approach provides patients with clarity and nurses with decision support �
 ---
 
 ### Data Flow
+Patient (via USSD) → Africa’s Talking Gateway → Backend (NestJS) → Database (PostgreSQL) → Nurse Dashboard (Next.js) → (Nurse adds vitals) → AI Service (LLM) → AI Recommendation → Nurse Review → Final Decision Saved.
 
-[-- Diagram ---]
+#### Database Diagram:
+<img width="882" height="741" alt="image" src="https://github.com/user-attachments/assets/9a05b4d2-519d-4571-b8b0-d3e509ae7e08" />
 
-
+Adjusted for Nestjs Model structure.
 ---
 
 ## 5. Data Privacy & Security
@@ -83,32 +85,21 @@ This approach provides patients with clarity and nurses with decision support �
 Because healthcare data is highly sensitive, the system incorporates the following safeguards:
 
 - **Encrypted communication:** All API traffic via HTTPS/TLS.  
-- **Data anonymization:** Personally identifiable information (PII) minimized in AI requests.  
+- **Data anonymization:** Personally identifiable information is minimized in AI requests.  
 - **Access control:** Role-based login for nurses and admins.  
 - **Secure storage:** PostgreSQL configured with row-level security and encrypted backups.  
-
 ---
 
 ## 6. Future Vision (6-Month Roadmap)
 
 If given six additional months, the project would evolve as follows:
 
-| Phase | Focus | Description |
+| # | Focus | Description |
 |--------|--------|-------------|
-| **1–2 Months** | **Pilot Deployment** | Deploy in 2–3 clinics to collect real usage data and user feedback. |
-| **3–4 Months** | **AI Localization** | Fine-tune the LLM on local medical data (symptom phrasing, common illnesses). Improve triage accuracy and adapt language support. |
-| **5–6 Months** | **Expand Scope** | Add Problem 3 (“Knowledge Gap”) by integrating an AI-assisted reference guide for rural healthcare workers. Explore **voice-enabled USSD** for low-literacy users. |
+| **#1** | **Pilot Deployment** | Deploy in clinics to collect real usage data and user feedback. |
+| **#2** | **AI Localization** | Fine-tune the LLM on local medical data (symptom phrasing, common illnesses). Improve triage accuracy and adapt language support. |
+| **#3** | **Expand Scope** | Add Problem 3 (“Knowledge Gap”) by integrating an AI-assisted reference guide for rural healthcare workers. Explore **voice-enabled USSD** for low-literacy users. |
 
----
-
-## 7. Summary
-
-**eClinic** empowers rural healthcare facilities by combining:
-- **USSD-based patient registration** for accessibility,  
-- **AI-assisted triage** to prioritize care efficiently, and  
-- **A nurse-friendly dashboard** that reduces administrative time.
-
-This system restores **clarity, efficiency, and dignity** to patient care — even in low-resource environments.
 
 
 ## Important links:
