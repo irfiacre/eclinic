@@ -14,19 +14,16 @@ jobs:
     steps:
     
     - uses: actions/checkout@v4
+      name: Checkout code
 
     - name: Checking for correct paths
       run: echo $PWD/backend
 
     - name: Build and Push Docker Image
       id: build
-      uses: cloudposse/github-action-docker-build-push@main
+      uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        registry: docker.io
-        repository: "irfiacre/eclinic"
-        workdir: eclinic/backend
+        registry: registry.hub.docker.com
+        image: "irfiacre/eclinic"
         login: "${{ secrets.DOCKERHUB_USERNAME }}"
         password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-    outputs:
-      image: ${{ steps.build.outputs.image }}
-      tag: ${{ steps.build.outputs.tag }}
