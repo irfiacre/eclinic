@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Docker CI
 
 on:
   push:
@@ -11,18 +11,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: 20.x
-
     steps:
     - uses: actions/checkout@v4
-    - name: Building the Project ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: echo $PWD
+    # - name: Building the Project ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    # - run: echo $PWD
     # - run: cd $PWD/../../backend
     # - run: npm install
     # - run: npm run build
