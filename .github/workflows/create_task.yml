@@ -1,31 +1,3 @@
-name: Docker CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    
-    - uses: actions/checkout@v4
-      name: Checkout code
-
-    - name: Build and Push Docker Image
-      id: build
-      uses: mr-smithers-excellent/docker-build-push@v4
-      with:
-        registry: docker.io
-        image: "irfiacre/eclinic"
-        login: "${{ secrets.DOCKERHUB_USERNAME }}"
-        password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-
-
 name: Create Task
 
 on:

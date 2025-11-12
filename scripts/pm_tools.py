@@ -32,8 +32,8 @@ def create(title):
     Method creates a task
     """
     api = TodoistAPI(API_TOKEN)
-    click.echo(f"Creating Task with ID - {title}")
     api.add_task(content=title, project_id=PROJECT_ID, section_id=TO_DO_SECTION_ID)
+    click.echo(f"Created Task with title {title} and ID: {title}")
 
 @cli.command()
 @click.argument("task_id")
