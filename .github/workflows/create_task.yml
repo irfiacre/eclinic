@@ -28,4 +28,4 @@ jobs:
       - name: Create Task (ticket)
         working-directory: ./scripts
         run: |
-          python3 scripts/pm_tools.py create "${{ github.event.pull_request.title }}"
+          python3 pm_tools.py create "${{ github.event.pull_request.title }}"
