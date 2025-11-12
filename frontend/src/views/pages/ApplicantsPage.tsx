@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import ApplicantProgress from "@/src/components/ApplicantProgress";
 import BaseCard from "@/src/components/cards/BaseCard";
 import ApplicantProgressCard from "@/src/components/cards/ApplicantProgressCard";
-import { APPLICANT_COURSES } from "@/constants/fixtures";
 import SearchableInput from "@/src/components/inputs/SearchInput";
 
 const ApplicantsPage = ({ applicants }: { applicants: Array<any> }) => {
