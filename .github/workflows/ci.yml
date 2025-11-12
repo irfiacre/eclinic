@@ -20,7 +20,8 @@ jobs:
       id: build
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        registry: docker.io
+        registry: registry.hub.docker.com
         image: "irfiacre/eclinic"
         login: "${{ secrets.DOCKERHUB_USERNAME }}"
         password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+
