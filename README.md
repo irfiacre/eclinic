@@ -105,4 +105,7 @@ If given six additional months, the project would evolve as follows:
 
 ## Important links:
 Backend: https://eclinic-backend.vercel.app/
-Frontend: eclinicfrontend.vercel.app
+
+Frontend: (https://eclinicfrontend.vercel.app/)
+PM Tool: https://app.todoist.com/app/project/eclinic-6fFgj2HCJ5VcffGg
+
