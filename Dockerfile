@@ -1,28 +1,49 @@
-FROM node:20-alpine AS builder
+# -------------------------------
+# 1. FRONTEND BUILD STAGE
+# -------------------------------
+FROM node:20-alpine AS frontend-builder
 
-WORKDIR /app
+WORKDIR /app/frontend
 
-COPY backend/package*.json ./backend/
-
-WORKDIR /app/backend
-RUN npm install
+# Copy and install dependencies
+COPY frontend/package*.json ./
 RUN npm ci
 
-COPY backend/ ./ 
-
+# Copy frontend source and build
+COPY frontend/ ./
 RUN npm run build
 
-FROM node:20-alpine AS runner
+
+# -------------------------------
+# 2. BACKEND BUILD STAGE
+# -------------------------------
+FROM node:20-alpine AS backend-builder
 
 WORKDIR /app/backend
 
 COPY backend/package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
-COPY --from=builder /app/backend/dist ./dist
+COPY backend/ ./
+RUN npm run build
 
-EXPOSE 3000
+# -------------------------------
+# 3. FINAL RUNTIME STAGE
+# -------------------------------
+FROM node:20-alpine AS runner
 
-ENV DATABASE_URL=postgresql://neondb_owner:npg_ayfrL6PDe0Ik@ep-super-lake-ah9vaa6v.c-3.us-east-1.aws.neon.tech/eclinic?sslmode=require&channel_binding=require
+WORKDIR /app
 
-CMD ["node", "dist/main"]
+# Copy backend
+COPY --from=backend-builder /app/backend ./backend
+
+# Copy frontend (built version)
+COPY --from=frontend-builder /app/frontend ./frontend
+
+# Install concurrently to run both servers
+RUN npm install -g concurrently
+
+# Start both frontend & backend
+CMD concurrently \
+  "cd backend && npm run start:prod" \
+  "cd frontend && npm start"
