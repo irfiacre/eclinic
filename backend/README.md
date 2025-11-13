@@ -14,7 +14,7 @@ Link - https://eclinic-backend.vercel.app/
   JWT_SECRET=XXXXXXX
   ```
 
-- You've cloned the [repository](git@github.com:irfiacre/eclinic.git).
+- You've cloned the [repository](https://github.com/irfiacre/eclinic.git).
 
 ## Project setup
 

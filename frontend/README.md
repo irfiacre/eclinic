@@ -13,7 +13,7 @@ Link - https://eclinicfrontend.vercel.app/
   NEXT_GOOGLE_EMAIL_PASSWORD=<APP_PASSWORD_FOR_GOOGLE_EMAIL>
   NEXT_PUBLIC_BACKEND_BASE_URL=<BACKEND_BASE_URL>
   ```
-- You've cloned the [repository](git@github.com:irfiacre/eclinic.git).
+- You've cloned the [repository](https://github.com/irfiacre/eclinic.git).
 
 #### Getting Started
 
