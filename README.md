@@ -31,7 +31,7 @@ These two problems reinforce each other: long queues result partly from time-con
 
 **eClinic** is a lightweight digital triage and consultation support system designed for rural clinics.  
 
-<img width="625" height="165" alt="image" src="https://github.com/user-attachments/assets/1f413114-4160-4488-8faf-c2ef11d08ac0" />
+![solution_overview](https://github.com/user-attachments/assets/a9f1881c-c41d-4fc0-9c0b-de66d5466ce3)
 
 It integrates **USSD-based patient pre-registration** with an **AI-assisted triage and summarization tool** to streamline care delivery and reduce administrative burden.
 
@@ -75,9 +75,9 @@ This approach provides patients with clarity and nurses with decision support �
 Patient (via USSD) → Africa’s Talking Gateway → Backend (NestJS) → Database (PostgreSQL) → Nurse Dashboard (Next.js) → (Nurse adds vitals) → AI Service (LLM) → AI Recommendation → Nurse Review → Final Decision Saved.
 
 #### Database Diagram:
-<img width="882" height="741" alt="image" src="https://github.com/user-attachments/assets/9a05b4d2-519d-4571-b8b0-d3e509ae7e08" />
+![db_diagram](https://github.com/user-attachments/assets/0adaf059-aac2-43b3-8b86-0461dab20f1c)
 
-Adjusted for Nestjs Model structure.
+Adjusted for NestJS model structure.
 ---
 
 ## 5. Data Privacy & Security
