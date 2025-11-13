@@ -78,6 +78,7 @@ Patient (via USSD) → Africa’s Talking Gateway → Backend (NestJS) → Datab
 ![db_diagram](https://github.com/user-attachments/assets/0adaf059-aac2-43b3-8b86-0461dab20f1c)
 
 Adjusted for NestJS model structure.
+
 ---
 
 ## 5. Data Privacy & Security
