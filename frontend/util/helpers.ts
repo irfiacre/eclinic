@@ -4,10 +4,10 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { TOKEN_COOKIE_NAME } from "@/constants/fixtures";
 
-export const emailValidate = (email: string) => {
+export const emailValidate = async (email: string) => {
   if (!email) return "No Email Provided!";
   const re =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    await /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (re.test(String(email).toLowerCase())) {
     return email;
   } else {

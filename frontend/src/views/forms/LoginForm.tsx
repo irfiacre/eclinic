@@ -33,9 +33,9 @@ const LoginForm = ({
       error: null,
     }));
   };
-  const handleSubmitForm = (e: any) => {
+  const handleSubmitForm = async(e: any) => {
     e.preventDefault();
-    const emailValidation = emailValidate(state.email);
+    const emailValidation = await emailValidate(state.email);    
     if (emailValidation !== state.email) {
       setState((prevState: any) => ({
         ...prevState,
