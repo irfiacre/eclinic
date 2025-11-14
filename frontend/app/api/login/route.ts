@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
   if (response.status == 201) {
     cookieStore.set(TOKEN_COOKIE_NAME, response.result.token);
-    return NextResponse.json({ success: true }, { status: 201 });
+    return NextResponse.json({ success: true }, { status: 200 });
   } else {
     return NextResponse.json({ error: "Invalid Credentials" }, { status: 401 });
   }

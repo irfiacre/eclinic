@@ -112,6 +112,21 @@ Actual file used will be shared upon request, or you can follow the guide as def
 
 Navigate to - http://localhost:3000/
 
-Backend: https://eclinic-backend.vercel.app/
-Frontend: (https://eclinicfrontend.vercel.app/)
-PM Tool: https://app.todoist.com/app/project/eclinic-6fFgj2HCJ5VcffGg
+## Prod Demo:
+
+- Backend: https://eclinic-backend.vercel.app/
+- Frontend: (https://eclinicfrontend.vercel.app/)
+- PM Tool: https://app.todoist.com/app/project/eclinic-6fFgj2HCJ5VcffGg
+
+### Test Credentials
+#### Admin:
+```
+Email: admin@eclinic.com
+Password: eclinic@2025
+```
+
+#### Nurse:
+```
+Email: nurse@eclinic.com
+Password: eclinic@2025
+```

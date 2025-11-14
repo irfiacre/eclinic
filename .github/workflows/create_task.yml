@@ -7,8 +7,9 @@ on:
       - main
 
 jobs:
-  install-python-deps:
+  create-task:
     runs-on: ubuntu-latest
+    if: ${{ !matches(github.head_ref, '^[A-Za-z0-9]+-.+') }}
 
     steps:
       - name: Checkout code

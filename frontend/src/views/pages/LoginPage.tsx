@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LogoComponent from "@/src/components/logo/LogoComponent";
-// import { signExistingUser } from "@/services/firebase/authentication";
 import { useRouter } from "next/navigation";
 import LoginForm from "../forms/LoginForm";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState<string>("");
+  const router = useRouter()
 
   const handleLoginBtn = async (email: string, password: string) => {
     setLoading(true);
@@ -18,8 +18,10 @@ const LoginPage = () => {
       },
       body: JSON.stringify({ email, password }),
     });
-    if (result.status !== 201) {
+    if (result.status !== 200) {
       setLoginError("Invalid Credentials");
+    }else{
+      router.replace("/cases");
     }
     setLoading(false);
   };

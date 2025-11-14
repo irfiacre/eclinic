@@ -2,7 +2,6 @@
 import { PLACEHOLDER_IMG } from "@/constants/fixtures";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -12,10 +11,18 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
   const [currentTitle, setCurrentTitle] = useState("Overview");
 
   const router = useRouter();
+
   const handleLogout = async () => {
-    localStorage.removeItem("user");
-    // await signOutUser();
-    router.replace("/");
+    const result = await fetch("/api/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (result.status == 200) {
+      router.replace("/");
+    }
   };
 
   useEffect(() => {
@@ -63,15 +70,6 @@ const TopNav = ({ user, title }: { user: any; title: string }) => {
               tabIndex={-1}
             >
               <div className="py-1" role="none">
-                <Link
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700"
-                  role="menuitem"
-                  tabIndex={-1}
-                  id="menu-item-2"
-                >
-                  Profile
-                </Link>
                 <button
                   type="button"
                   className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-backgroundColor2"
