@@ -1,0 +1,19 @@
+# ---- BACKEND ----
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# production runner
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+COPY --from=builder /app ./
+
+EXPOSE 10000
+
+CMD ["npm", "run", "start:prod"]

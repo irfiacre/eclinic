@@ -1,28 +1,33 @@
-FROM node:20-alpine AS builder
+FROM node:20-alpine AS frontend-builder
 
-WORKDIR /app
+WORKDIR /app/frontend
 
-COPY backend/package*.json ./backend/
-
-WORKDIR /app/backend
-RUN npm install
+COPY frontend/package*.json ./
 RUN npm ci
 
-COPY backend/ ./ 
-
+COPY frontend/ ./
 RUN npm run build
 
-FROM node:20-alpine AS runner
+FROM node:20-alpine AS backend-builder
 
 WORKDIR /app/backend
 
 COPY backend/package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
-COPY --from=builder /app/backend/dist ./dist
+COPY backend/ ./
+RUN npm run build
 
-EXPOSE 3000
+FROM node:20-alpine AS runner
 
-ENV DATABASE_URL=postgresql://neondb_owner:npg_ayfrL6PDe0Ik@ep-super-lake-ah9vaa6v.c-3.us-east-1.aws.neon.tech/eclinic?sslmode=require&channel_binding=require
+WORKDIR /app
 
-CMD ["node", "dist/main"]
+COPY --from=backend-builder /app/backend ./backend
+
+COPY --from=frontend-builder /app/frontend ./frontend
+
+RUN npm install -g concurrently
+
+CMD concurrently \
+  "cd frontend && npm start" \
+  "cd backend && npm run start:prod"
