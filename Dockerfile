@@ -29,5 +29,5 @@ COPY --from=frontend-builder /app/frontend ./frontend
 RUN npm install -g concurrently
 
 CMD concurrently \
-  "cd backend && npm run start:prod" \
-  "cd frontend && npm start"
+  "cd frontend && npm start" \
+  "cd backend && npm run start:prod"
