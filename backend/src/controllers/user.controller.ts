@@ -63,6 +63,7 @@ export class UsersController {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     res.setHeader('Content-Type', 'text/plain');
+    res.status(200);
     res.send(result);
   }
 }
