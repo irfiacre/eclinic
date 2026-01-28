@@ -152,7 +152,7 @@ export class UsersService {
 
       if (!userFound) {
         if (!text) {
-          return `CON Shyiramo nimero yirangamuntu`;
+          return `CON Welcome to MUGANGA\nShyiramo nimero yirangamuntu`;
         }
         // Validate the ID Provided
         if (text.length === 16) {
