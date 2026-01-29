@@ -147,6 +147,8 @@ export class UsersService {
   }
 
   async handleUssd(phoneNumber: string, text: string): Promise<string> {
+    console.log('-----------', phoneNumber, text);
+
     try {
       let userFound: User | null = await this.findOne(phoneNumber);
 
