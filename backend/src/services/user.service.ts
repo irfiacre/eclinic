@@ -77,6 +77,8 @@ export class UsersService {
 
     let response;
 
+    console.log('========', patientCase);
+
     if (!patientInformation.painScale) {
       const choice = parseInt(text);
       if (choice >= 1 && choice <= 10) {
