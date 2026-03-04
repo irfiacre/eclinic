@@ -61,10 +61,8 @@ export class UsersService {
 
   async handlePatientInformation(
     patientCase: PatientCase,
-    text: string,
+    inputs: string[],
   ): Promise<string> {
-    // TODO: Remember to add validation on cases where a user adds "n" or wrong inputs.
-
     let patientInformation = patientCase?.patientInformation;
 
     if (!patientInformation) {
@@ -75,90 +73,116 @@ export class UsersService {
       );
     }
 
-    let response;
+    let step = 0;
 
+    // --- Step: painScale ---
     if (!patientInformation.painScale) {
-      const choice = parseInt(text);
+      const raw = inputs[step];
+      if (raw === undefined) {
+        return 'CON Mutubwire igipimo cyububabare mufite ububabare (hitamo hagati ya 1 kugeza 10)';
+      }
+      const choice = parseInt(raw);
       if (choice >= 1 && choice <= 10) {
-        Object.assign(patientInformation, { painScale: choice });
+        patientInformation.painScale = choice.toLocaleString();
         await this.patientInformationRepository.save(patientInformation);
-        response = await this.handlePatientInformation(patientCase, text);
       } else {
-        response =
-          'CON Mutubwire igipimo cyububabare mufite ububabare (hitamo hagati ya 1 kugeza 10)';
+        return 'END Andika umubare uri hagati ya 1 na 10';
       }
-    } else if (!patientInformation.painLocation) {
-      if (text.length === 1 && ['a', 'b', 'c', 'n'].includes(text)) {
-        Object.assign(patientInformation, {
-          painLocation:
-            text === 'a'
-              ? 'head'
-              : text === 'b'
-                ? 'stomach'
-                : text === 'c'
-                  ? 'chest'
-                  : '',
-        });
-        await this.patientInformationRepository.save(patientInformation);
-        response = await this.handlePatientInformation(patientCase, text);
-      } else {
-        response =
-          'CON Andika nimero yumubare ujyane naho ubabara: \na. Umutwe\nb. Munda\nc. Mugituza\nn. Ntaho';
-      }
-    } else if (!patientInformation.days) {
-      const choice = parseInt(text);
-      if (choice >= 0) {
-        Object.assign(patientInformation, { days: choice });
-        await this.patientInformationRepository.save(patientInformation);
-        response = await this.handlePatientInformation(patientCase, text);
-      } else {
-        return 'CON Andika umubare wiminsi umaze urwaye';
-      }
-    } else if (!patientInformation.chronicDisease) {
-      if (text.length === 1 && ['d', 'u', 'a', 'n'].includes(text)) {
-        Object.assign(patientInformation, {
-          chronicDisease:
-            text === 'n'
-              ? ''
-              : text === 'd'
-                ? 'diabetes'
-                : text === 'u'
-                  ? 'high blood pressure'
-                  : 'asthma',
-        });
-        await this.patientInformationRepository.save(patientInformation);
-        response = await this.handlePatientInformation(patientCase, text);
-      } else {
-        return 'CON Hari indwara zidakira mufite\nd. Diabete\na. Asthma\nu. Umuvuduko wamaraso\nn. Ntayo';
-      }
-    } else if (!patientInformation.note) {
-      if (typeof text === 'string' && text.length >= 4) {
-        Object.assign(patientInformation, { note: text });
-        await this.patientInformationRepository.save(patientInformation);
-        response = await this.handlePatientInformation(patientCase, text);
-      } else {
-        return 'CON Duhe and makuru';
-      }
-    } else {
-      response = 'END Murakoze';
+      step++;
     }
 
-    return response;
+    // --- Step: painLocation ---
+    if (!patientInformation.painLocation) {
+      const raw = inputs[step];
+      if (raw === undefined) {
+        return 'CON Andika nimero yumubare ujyane naho ubabara: \na. Umutwe\nb. Munda\nc. Mugituza\nn. Ntaho';
+      }
+      if (['a', 'b', 'c', 'n'].includes(raw)) {
+        patientInformation.painLocation =
+          raw === 'a'
+            ? 'head'
+            : raw === 'b'
+              ? 'stomach'
+              : raw === 'c'
+                ? 'chest'
+                : '';
+        await this.patientInformationRepository.save(patientInformation);
+      } else {
+        return 'END Hitamo a, b, c, cyangwa n';
+      }
+      step++;
+    }
+
+    // --- Step: days ---
+    if (!patientInformation.days) {
+      const raw = inputs[step];
+      if (raw === undefined) {
+        return 'CON Andika umubare wiminsi umaze urwaye';
+      }
+      const choice = parseInt(raw);
+      if (!isNaN(choice) && choice >= 0) {
+        patientInformation.days = choice.toLocaleString();
+        await this.patientInformationRepository.save(patientInformation);
+      } else {
+        return 'END Andika umubare wiminsi';
+      }
+      step++;
+    }
+
+    // --- Step: chronicDisease ---
+    if (!patientInformation.chronicDisease) {
+      const raw = inputs[step];
+      if (raw === undefined) {
+        return 'CON Hari indwara zidakira mufite\nd. Diabete\na. Asthma\nu. Umuvuduko wamaraso\nn. Ntayo';
+      }
+      if (['d', 'u', 'a', 'n'].includes(raw)) {
+        patientInformation.chronicDisease =
+          raw === 'n'
+            ? ''
+            : raw === 'd'
+              ? 'diabetes'
+              : raw === 'u'
+                ? 'high blood pressure'
+                : 'asthma';
+        await this.patientInformationRepository.save(patientInformation);
+      } else {
+        return 'END Hitamo d, a, u, cyangwa n';
+      }
+      step++;
+    }
+
+    // --- Step: note ---
+    if (!patientInformation.note) {
+      const raw = inputs[step];
+      if (raw === undefined) {
+        return 'CON Duhe and makuru';
+      }
+      if (raw.length >= 4) {
+        patientInformation.note = raw;
+        await this.patientInformationRepository.save(patientInformation);
+      } else {
+        return 'END Andika byibura inyuguti 4';
+      }
+    }
+
+    return 'END Murakoze';
   }
 
   async handleUssd(phoneNumber: string, text: string): Promise<string> {
     try {
+      const inputs = text ? text.split('*') : [];
       let userFound: User | null = await this.findOne(phoneNumber);
+      let isNewUser = false;
 
       if (!userFound) {
-        if (!text) {
+        if (inputs.length === 0) {
           return `CON Shyiramo nimero yirangamuntu`;
         }
-        // Validate the ID Provided
-        if (text.length === 16) {
+        const nationalId = inputs[0];
+        if (nationalId.length === 16) {
           const { firstName, lastName } = mockNidaApi();
           await this.create({
-            nationalId: text,
+            nationalId,
             telephone: phoneNumber,
             firstName,
             lastName,
@@ -167,12 +191,13 @@ export class UsersService {
           if (userFound) {
             await this.patientCaseService.create({ patient: userFound });
           }
+          isNewUser = true;
         } else {
           return 'END Andika irangamuntu neza';
         }
       }
 
-      if (text && userFound) {
+      if (userFound) {
         const patientCase = await this.patientCaseService.findOneByCondition({
           patient: userFound,
         });
@@ -181,8 +206,14 @@ export class UsersService {
             `Could Not find case for patient ${userFound.id}.`,
           );
         }
-        const result = await this.handlePatientInformation(patientCase, text);
-        if (result && result.includes('CON')) {
+
+        // Only skip the first input if the user registered in THIS session
+        const patientInputs = isNewUser ? inputs.slice(1) : inputs;
+        const result = await this.handlePatientInformation(
+          patientCase,
+          patientInputs,
+        );
+        if (result.includes('CON')) {
           return result;
         }
 
@@ -191,7 +222,7 @@ export class UsersService {
         );
       }
 
-      return `END Twakiriye neza case yanyu.\n Turaje tubafashe`;
+      return `END Twakiriye neza case yan--yu.\n Turaje tubafashe`;
     } catch (error) {
       console.error(error);
       return `END Mwongere mugerageze`;
