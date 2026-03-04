@@ -222,7 +222,7 @@ export class UsersService {
         );
       }
 
-      return `END Twakiriye neza case yan--yu.\n Turaje tubafashe`;
+      return `END Twakiriye neza case yanyu!\n Turaje tubafashe`;
     } catch (error) {
       console.error(error);
       return `END Mwongere mugerageze`;
