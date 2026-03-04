@@ -1,5 +1,5 @@
 "use server";
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatDeepSeek } from "@langchain/deepseek";
 import { createAgent } from "langchain";
 import * as z from "zod";
 
@@ -9,10 +9,10 @@ export interface QuestionInterface {
   answer: string;
 }
 
-const API_KEY = process.env.NEXT_GOOGLE_API_KEY;
+const API_KEY = process.env.NEXT_DEEPSEEK_API_KEY;
 
-const model = new ChatGoogleGenerativeAI({
-  model: "gemini-2.5-flash-lite",
+const model: any = new ChatDeepSeek({
+  model: "deepseek-chat",
   apiKey: API_KEY,
 });
 
@@ -20,7 +20,7 @@ const ModelResponse = z.object({ result: z.string() });
 
 export const handleGetAgentOutput = async (
   assessmentPrompt: string,
-  question: string
+  question: string,
 ) => {
   const agent = createAgent({
     model,
