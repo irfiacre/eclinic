@@ -16,4 +16,7 @@ export const AppDataSource = new DataSource({
   logging: false,
   entities: [User, Measurement, PatientInformation, PatientCase, Staff],
   migrations: ['dist/migrations/*.js'],
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
